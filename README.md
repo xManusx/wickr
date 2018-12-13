@@ -1,4 +1,4 @@
-# georgeglarson/wickr
+# xManusx/wickr
  [![Docker Pulls](https://img.shields.io/docker/pulls/j0rg3/wickr.svg)](https://hub.docker.com/r/j0rg3/wickr)
 
 
