@@ -5,8 +5,8 @@
 # Wickr in a Docker container
 
 - [Introduction](#introduction)
+- [How to build](#howtobuild)
 - [Installation](#installation)
-- [Notes](#notes)
 - [References](#references)
 
 
@@ -15,49 +15,19 @@ The purpose of this project is to make Wickr available on a system, through a [D
 
 A description of how and why this project came to be can be found at [`j0rg3.com`](http://j0rg3.com/2017/02/18#20170218.making.a.docker.wickr).
 
+# How to build
+Just execute the `build.sh` script. It expects to find the Ubuntu installation `.zip` file from the Wickr [Download Page](https://me-download.wickr.com/#/version/me) in the same directory.
+Prior to  building, the current version can be set in the `VERSION` file.
+Docker username and the image name can be set in `envs.sh`.
+
 # Installation
-```bash
-git clone https://github.com/georgeglarson/wickr 
+Instead of building the image yourself it can also be pulled from Docker. `install.sh` pulls the image (according to `envs.sh`) from Docker and creates `/usr/local/bin/wickr`, which can be used to start WickrMe.
 
-cd wickr
+# How to launch
+Wickr can be launched by either executing the `launch.sh` or by simply executing 
 
-./install.sh
-```
+`docker run --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" <IMAGENAME>`
 
-The installation script will:
-- pull Docker image
-- make local directories
-- generate SSH keys
-- create symbolic links
-
-Alternatively, you can execute the commands yourself:
-```bash
-# open Docker container: 
-#    detatched, interactive, pseudo-tty (-dit)
-#  record container ID in $DID (Docker ID)
-DID=$(docker run -v ~/.config/wickr/keys/:/root/.ssh/ -dit j0rg3/wickr bash)
-
-# find IP address of new container, record in $DIP (Docker IP)
-DIP=$(docker inspect $DID | grep IPAddress | cut -d '"' -f 4)
-
-# pause for one second to allow container's SSHD to come online
-sleep 1
-
-# SSH into container and execute Wickr
-ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=~/.config/wickr/keys/docker-wickr-keys -X $DIP wickr-me
-
-# close container if Wickr is closed; must logout first
-docker kill $DID
-```
-
-# Notes
-The commands contained in the 'wickr' script:
-```bash
-DID=$(docker run -v ~/.config/wickr/keys/:/root/.ssh/ -dit j0rg3/wickr bash) && \
-DIP=$(docker inspect $DID | grep IPAddress | cut -d '"' -f 4) && \ 
-ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=~/.config/wickr/keys/docker-wickr-keys -X $DIP wickr-me && \
-docker kill $DID
-```
 
 # References
 [http://j0rg3.com/2017/02/18#20170218.making.a.docker.bitmessage](http://j0rg3.com/2017/02/18#20170218.making.a.docker.bitmessage)
