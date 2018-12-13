@@ -13,7 +13,7 @@
 # Introduction
 The purpose of this project is to make Wickr available on a system, through a [Docker](https://www.docker.com/) container, with the fluidity of applications natively installed.
 
-A description of how and why this project came to be can be found at [`j0rg3.com`](http://j0rg3.com/2017/02/18#20170218.making.a.docker.wickr).
+A description of how and why this project came to be can be found at [`j0rg3.com`](http://j0rg3.com/2017/02/18#20170218.making.a.docker.wickr). As the current Wickr package for Arch Linux was broken, I decided I was to lazy to fix the package and instead just build a (working) docker image for Wickr.
 
 # How to build
 Just execute the `build.sh` script. It expects to find the Ubuntu installation `.zip` file from the Wickr [Download Page](https://me-download.wickr.com/#/version/me) in the same directory.
